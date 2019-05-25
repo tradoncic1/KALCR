@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="SpinnerItem">
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:background">@color/colorEditTextBackground</item>
+        <item name="android:color">@color/colorEditTextHint</item>
+    </style>
+
+    <style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:headerDividersEnabled">true</item>
+        <item name="android:background">@color/colorEditTextBackground</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">KALCR</string>
+    <string-array name="types_array">
+        <item>User</item>
+        <item>Band</item>
+        <item>Artist</item>
+        <item>Performer</item>
+        <item>Venue Owner</item>
+    </string-array>
+
+</resources>
