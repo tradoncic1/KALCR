@@ -44,7 +44,7 @@ public class EventListAdapterOwner extends BaseAdapter {
 
         final Event event = eventList.get(position);
 
-        TextView eventTitle = convertView.findViewById(R.id.artistName);
+        TextView eventTitle = convertView.findViewById(R.id.eventName);
         final TextView eventLocation = convertView.findViewById(R.id.eventLocationInput);
         TextView eventDateTime = convertView.findViewById(R.id.eventDateTime);
         TextView eventPrice = convertView.findViewById(R.id.eventPrice);

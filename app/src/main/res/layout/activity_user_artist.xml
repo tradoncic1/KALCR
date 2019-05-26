@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ArtistMainActivity"
+    tools:context=".UserArtistActivity"
     android:background="@drawable/user_background1"
     android:focusable="true"
     android:focusableInTouchMode="true">
@@ -52,84 +52,6 @@
             app:layout_constraintVertical_bias="1.0">
 
             <!--artist edit text-->
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/artistEditText"
-                android:visibility="gone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <EditText
-                    android:id="@+id/artistNameInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
-                    android:fontFamily="@font/roboto"
-                    android:hint="artist name"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@color/colorEditTextHint"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <EditText
-                    android:id="@+id/artistDescInput"
-                    android:layout_width="0dp"
-                    android:layout_height="135dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:ems="10"
-                    android:fontFamily="@font/roboto"
-                    android:hint="Description"
-                    android:inputType="textMultiLine"
-                    android:singleLine="false"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@color/colorEditTextHint"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/artistTypeInput"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/artistNameInput"
-                    app:layout_constraintTop_toBottomOf="@+id/artistNameInput"
-                    app:layout_constraintVertical_bias="1.0" />
-
-                <EditText
-                    android:id="@+id/artistTypeInput"
-                    android:layout_width="105dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:ems="10"
-                    android:hint="artist type"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@color/colorEditTextHint"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
-            </android.support.constraint.ConstraintLayout>
 
             <!--artist text view-->
             <android.support.constraint.ConstraintLayout
@@ -205,25 +127,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <Button
-            android:id="@+id/changeImgBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Edit Image"
-            android:background="@drawable/buttons3"
-            android:textColor="@android:color/white"
-            android:paddingHorizontal="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/artistCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
     </android.support.constraint.ConstraintLayout>
 
 
@@ -288,39 +191,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
-
-    <Button
-        android:id="@+id/editBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/buttons3"
-        android:paddingHorizontal="16dp"
-        android:text="Edit Profile"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardLayout" />
-
-    <Button
-        android:id="@+id/applyBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/buttons3"
-        android:paddingHorizontal="16dp"
-        android:text="Apply Changes"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardLayout" />
 
 </android.support.constraint.ConstraintLayout>

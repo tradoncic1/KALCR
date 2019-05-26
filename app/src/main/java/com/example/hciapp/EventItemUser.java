@@ -3,6 +3,7 @@ package com.example.hciapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,13 +20,13 @@ public class EventItemUser extends AppCompatActivity {
     TextView eventType;
     TextView eventPrice;
     TextView eventVenue;
+    TextView eventArtist;
 
     Button getTicketBtn;
     Button cancelBtn;
 
     ImageView eventImage;
 
-    //String username;
     User user;
 
     @Override
@@ -35,13 +36,14 @@ public class EventItemUser extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        eventName = findViewById(R.id.artistName);
+        eventName = findViewById(R.id.eventName);
         eventDesc = findViewById(R.id.eventDesc);
         eventDateTime = findViewById(R.id.eventDateTime);
         eventLocation = findViewById(R.id.eventLocationInput);
         eventType = findViewById(R.id.eventType);
         eventPrice = findViewById(R.id.eventPrice);
         eventVenue = findViewById(R.id.eventVenue);
+        eventArtist = findViewById(R.id.artistName);
 
         getTicketBtn = findViewById(R.id.getTicketBtn);
         cancelBtn = findViewById(R.id.cancelBtn);
@@ -56,8 +58,10 @@ public class EventItemUser extends AppCompatActivity {
         eventLocation.setText(event.getLocation());
         eventPrice.setText(event.getPrice());
         eventVenue.setText(event.getVenue());
+        final Artist artist = MyDatabase.getDatabase(getApplicationContext()).artistDAO().getArtist(event.getArtist());
+        eventArtist.setText(artist.getFullName());
+        eventArtist.setPaintFlags(eventArtist.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        //username = extras.getString("username");
         user = MyDatabase.getDatabase(getApplicationContext()).userDAO().getUser(extras.getInt("userId"));
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(
@@ -81,13 +85,23 @@ public class EventItemUser extends AppCompatActivity {
         getTicketBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Ticket Reserved", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), "Ticket Reserved", Toast.LENGTH_LONG).show();
 
                 Intent backIntent = new Intent(getApplicationContext(), UserMainActivity.class);
                 backIntent.putExtra("userId", user.getUserId());
 
                 finish();
                 startActivity(backIntent);
+            }
+        });
+
+        eventArtist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToArtist = new Intent(getApplicationContext(), UserArtistActivity.class);
+                goToArtist.putExtra("artistId", artist.getArtistId());
+
+                startActivity(goToArtist);
             }
         });
     }

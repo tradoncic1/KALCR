@@ -84,21 +84,18 @@ public class UserMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CharSequence filterPattern;
                 if (locationFilter.getText().toString().isEmpty()) {
-                    filterPattern = "empty/" + typeFilter.getText().toString();
+                    filterPattern = "empty/" + typeFilter.getText().toString().toLowerCase();
                     adapter.getFilter().filter(filterPattern);
                 } else if (typeFilter.getText().toString().isEmpty()) {
-                    filterPattern = locationFilter.getText().toString() + "/empty";
+                    filterPattern = locationFilter.getText().toString().toLowerCase() + "/empty";
                     adapter.getFilter().filter(filterPattern);
                 } else if (!typeFilter.getText().toString().isEmpty() && !locationFilter.getText().toString().isEmpty()) {
-                    filterPattern = locationFilter.getText().toString() + "/" + typeFilter.getText().toString();
+                    filterPattern = locationFilter.getText().toString().toLowerCase() + "/" + typeFilter.getText().toString().toLowerCase();
                     adapter.getFilter().filter(filterPattern);
                 } else {
                     eventList.clear();
                     eventList.addAll(MyDatabase.getDatabase(getApplicationContext()).eventsDAO().getAllEvents());
-                    //filterPattern = "empty";
                 }
-
-                //adapter.getFilter().filter(filterPattern);
             }
         });
 

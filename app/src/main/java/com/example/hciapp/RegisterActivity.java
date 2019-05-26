@@ -68,14 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         typeSpinner.setAdapter(adapter);
 
-        /*if (fullNameInput.getText().toString().isEmpty() ||
-            usernameInput.getText().toString().isEmpty()||
-            emailInput.getText().toString().isEmpty() ||
-            passwordInput.getText().toString().isEmpty())
-        {
-            registerBtn.setEnabled(false);
-        }*/
-
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override

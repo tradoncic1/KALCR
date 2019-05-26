@@ -48,7 +48,7 @@ public class EventListAdapter extends BaseAdapter implements Filterable {
 
         Event event = eventList.get(position);
 
-        TextView eventTitle = convertView.findViewById(R.id.artistName);
+        TextView eventTitle = convertView.findViewById(R.id.eventName);
         TextView eventLocation = convertView.findViewById(R.id.eventLocationInput);
         TextView eventDateTime = convertView.findViewById(R.id.eventDateTime);
         TextView eventPrice = convertView.findViewById(R.id.eventPrice);

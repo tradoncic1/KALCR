@@ -18,9 +18,10 @@ public class Event {
     String price;
     String type;
     String venue;
+    int artistId;
     byte[] eventImage;
 
-    public Event(int eventId, String title, String description, String location, String dateTime, String price, String type, String venue, byte[] eventImage) {
+    public Event(int eventId, String title, String description, String location, String dateTime, String price, String type, String venue, int artistId, byte[] eventImage) {
         this.eventId = eventId;
         this.title = title;
         this.description = description;
@@ -30,10 +31,11 @@ public class Event {
         this.type = type;
         this.venue = venue;
         this.eventImage = eventImage;
+        this.artistId = artistId;
     }
 
     @Ignore
-    public Event(String title, String description, String location, String dateTime, String price, String type, String venue) {
+    public Event(String title, String description, String location, String dateTime, String price, String type, int artistId, String venue) {
         this.title = title;
         this.description = description;
         this.location = location;
@@ -41,10 +43,11 @@ public class Event {
         this.price = price;
         this.type = type;
         this.venue = venue;
+        this.artistId = artistId;
     }
 
     @Ignore
-    public Event(String title, String description, String location, String dateTime, String price, String type, String venue, byte[] eventImage) {
+    public Event(String title, String description, String location, String dateTime, String price, String type, String venue, int artistId, byte[] eventImage) {
         this.eventId = eventId;
         this.title = title;
         this.description = description;
@@ -54,6 +57,7 @@ public class Event {
         this.type = type;
         this.venue = venue;
         this.eventImage = eventImage;
+        this.artistId = artistId;
     }
 
     public int getEventId() {
@@ -126,5 +130,13 @@ public class Event {
 
     public void setEventImage(byte[] eventImage) {
         this.eventImage = eventImage;
+    }
+
+    public int getArtist() {
+        return artistId;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artistId = artist.getArtistId();
     }
 }

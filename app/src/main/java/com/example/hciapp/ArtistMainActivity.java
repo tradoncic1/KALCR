@@ -64,7 +64,7 @@ public class ArtistMainActivity extends AppCompatActivity {
         applyBtn = findViewById(R.id.applyBtn);
         applyBtn.setVisibility(View.GONE);
 
-        artistName = findViewById(R.id.artistName);
+        artistName = findViewById(R.id.eventName);
         artistDesc = findViewById(R.id.artistDesc);
         artistType = findViewById(R.id.artistType);
 

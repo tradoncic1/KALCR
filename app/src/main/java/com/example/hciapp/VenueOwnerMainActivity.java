@@ -14,10 +14,12 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
@@ -49,12 +51,13 @@ public class VenueOwnerMainActivity extends AppCompatActivity {
 
     User user;
 
+    Spinner artistSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venue_owner_main);
 
-        //final Intent receivedIntent = getIntent();
         Bundle extras = getIntent().getExtras();
 
         eventImage = findViewById(R.id.eventImage);
@@ -73,14 +76,23 @@ public class VenueOwnerMainActivity extends AppCompatActivity {
         listView = findViewById(R.id.eventList);
 
         usernameDisplay = findViewById(R.id.usernameDisplay);
-        //usernameDisplay.setText(receivedIntent.getStringExtra("username"));
         user = MyDatabase.getDatabase(getApplicationContext()).userDAO().getUser(extras.getInt("userId"));
         usernameDisplay.setText(user.getUsername());
 
+        artistSpinner = findViewById(R.id.artistSpinner);
+        List<Artist> artists = MyDatabase.getDatabase(getApplicationContext()).artistDAO().getAllArtists();
+        String[] artistNames = new String[artists.size()];
+        for (int i = 0; i < artists.size(); i++) {
+            artistNames[i] = artists.get(i).getFullName();
+        }
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, artistNames);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_item);
+
+        artistSpinner.setAdapter(spinnerAdapter);
+
 
         eventList = MyDatabase.getDatabase(getApplicationContext()).eventsDAO().getAllEvents();
-
-        //String username = receivedIntent.getStringExtra("username");
 
         for (Event event: eventList) {
             if (!event.getVenue().equals(user.getFullName())) {
@@ -165,16 +177,27 @@ public class VenueOwnerMainActivity extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
-        //bitmap.recycle();
+
+        Artist artist = null;
+        List<Artist> artists = MyDatabase.getDatabase(getApplicationContext()).artistDAO().getAllArtists();
+        for (Artist item: artists) {
+            if (item.getFullName().equalsIgnoreCase(artistSpinner.getSelectedItem().toString())) {
+                artist = item;
+            }
+        }
+        String desc = "";
+        if (!eventDesc.getText().toString().isEmpty()){
+            desc = eventDesc.getText().toString();
+        }
 
         Event event = new Event(eventName.getText().toString(),
-                eventDesc.getText().toString(),
+                desc,
                 eventLocation.getText().toString(),
                 eventDate.getText().toString(),
                 eventPrice.getText().toString(),
                 eventType.getText().toString(),
-                //receivedIntent.getStringExtra("username"),
                 user.getFullName(),
+                artist.getArtistId(),
                 byteArray);
 
         MyDatabase.getDatabase(getApplicationContext()).eventsDAO().addEvent(event);
