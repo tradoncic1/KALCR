@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -55,8 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                //Intent backIntent = new Intent(getApplicationContext(), LoginActivity.class);
-                //startActivity(backIntent);
             }
         });
 
@@ -80,56 +80,63 @@ public class RegisterActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.AlertDialog);
 
                     builder.setTitle("All fields required!")
-                            .setMessage("Please fill in all fileds in order to register!")
+                            .setMessage("Please fill in all fields in order to register!")
                             .setNegativeButton("Retry", null)
                             .create()
                             .show();
-                }
-                List<User> users = MyDatabase.getDatabase(getApplicationContext()).userDAO().getAllUsers();
-                boolean exists = false;
+                } else if (!isEmailValid(emailInput.getText().toString())) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.AlertDialog);
 
-                exists = checkDB(users);
+                    builder.setTitle("Invalid email!")
+                            .setMessage("Please enter a valid email address!")
+                            .setNegativeButton("Retry", null)
+                            .create()
+                            .show();
+                } else {
+                    List<User> users = MyDatabase.getDatabase(getApplicationContext()).userDAO().getAllUsers();
+                    boolean exists = false;
 
-                if (!exists) {
-                    if (typeSpinner.getSelectedItem().toString().equalsIgnoreCase("user") ||
-                            typeSpinner.getSelectedItem().toString().equalsIgnoreCase("venue owner")) {
-                        User user = new User(
-                                fullNameInput.getText().toString(),
-                                usernameInput.getText().toString(),
-                                emailInput.getText().toString(),
-                                passwordInput.getText().toString(),
-                                typeSpinner.getSelectedItem().toString()
-                        );
+                    exists = checkDB(users);
 
-                        MyDatabase.getDatabase(getApplicationContext()).userDAO().addUser(user);
-                    } else {
-                        //Drawable d = getResources().getDrawable(R.drawable.ic_account_box_black_24dp); // the drawable (Captain Obvious, to the rescue!!!)
-                        //Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-                        VectorDrawable d = (VectorDrawable) getResources().getDrawable(R.drawable.ic_account_box_black_24dp);
-                        Bitmap bitmap = getBitmapFromVector(d);
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                        byte[] bitmapdata = stream.toByteArray();
+                    if (!exists) {
+                        if (typeSpinner.getSelectedItem().toString().equalsIgnoreCase("user") ||
+                                typeSpinner.getSelectedItem().toString().equalsIgnoreCase("venue owner")) {
+                            User user = new User(
+                                    fullNameInput.getText().toString(),
+                                    usernameInput.getText().toString(),
+                                    emailInput.getText().toString(),
+                                    passwordInput.getText().toString(),
+                                    typeSpinner.getSelectedItem().toString()
+                            );
+
+                            MyDatabase.getDatabase(getApplicationContext()).userDAO().addUser(user);
+                        } else {
+                            VectorDrawable d = (VectorDrawable) getResources().getDrawable(R.drawable.ic_account_box_black_24dp);
+                            Bitmap bitmap = getBitmapFromVector(d);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                            byte[] bitmapdata = stream.toByteArray();
 
 
-                        Artist artist = new Artist(
-                                usernameInput.getText().toString(),
-                                fullNameInput.getText().toString(),
-                                emailInput.getText().toString(),
-                                passwordInput.getText().toString(),
-                                "Description",
-                                typeSpinner.getSelectedItem().toString(),
-                                bitmapdata
-                        );
+                            Artist artist = new Artist(
+                                    usernameInput.getText().toString(),
+                                    fullNameInput.getText().toString(),
+                                    emailInput.getText().toString(),
+                                    passwordInput.getText().toString(),
+                                    "Description",
+                                    typeSpinner.getSelectedItem().toString(),
+                                    bitmapdata
+                            );
 
-                        MyDatabase.getDatabase(getApplicationContext()).artistDAO().addArtist(artist);
+                            MyDatabase.getDatabase(getApplicationContext()).artistDAO().addArtist(artist);
+                        }
+
+                        Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_LONG).show();
+
+                        finish();
+                        Intent backIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(backIntent);
                     }
-
-                    Toast.makeText(getApplicationContext(), "Registered succesfully", Toast.LENGTH_LONG).show();
-
-                    finish();
-                    Intent backIntent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(backIntent);
                 }
             }
         });
@@ -168,5 +175,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return exists;
+    }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
